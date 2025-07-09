@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ucapan Ulang Tahun</title>
+    <style>
+        /* Base Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a1a4a 0%, #1e3799 40%, #4a69bd 90%, #89a3ff 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        /* Container */
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 2rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Birthday Card */
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease 0.3s both;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(45deg);
+            animation: shimmer 8s infinite linear;
+            z-index: -1;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Message */
+        .message {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+            opacity: 0.95;
+        }
+
+        /* Signature */
+        .signature {
+            font-style: italic;
+            margin-top: 2rem;
+            font-size: 1.2rem;
+        }
+
+        /* Cake Image */
+        .cake-container {
+            margin: 2rem 0;
+            animation: bounce 2s infinite alternate, pulse 3s infinite;
+        }
+
+        .cake-image {
+            max-width: 200px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Balloons */
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25px;
+            width: 2px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Buttons */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-100px) rotate(5deg);
+            }
+        }
+
+        @keyframes shimmer {
+            from {
+                transform: rotate(0deg) translate(-50%, -50%);
+            }
+            to {
+                transform: rotate(360deg) translate(-50%, -50%);
+            }
+        }
+
+        /* Confetti Effect */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            opacity: 0;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .message {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Balloons Decorations -->
+    <div class="balloon" style="left: 10%; top: 10%; animation-delay: 0s;"></div>
+    <div class="balloon" style="left: 20%; top: 30%; animation-delay: 1.5s;"></div>
+    <div class="balloon" style="left: 80%; top: 15%; animation-delay: 2.5s;"></div>
+    <div class="balloon" style="left: 75%; top: 35%; animation-delay: 3.5s;"></div>
+    <div class="balloon" style="left: 30%; top: 60%; animation-delay: 4s;"></div>
+    <div class="balloon" style="left: 60%; top: 70%; animation-delay: 1s;"></div>
+    <div class="balloon" style="left: 90%; top: 60%; animation-delay: 2s;"></div>
+
+    <!-- Container with birthday greeting -->
+    <div class="container">
+        <div class="header">
+            <h1>Selamat Ulang Tahun!</h1>
+            <p>Hari yang istimewa untuk orang yang istimewa</p>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <div class="cake-container">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c2d0f820-fd5f-4384-80f9-b4c7bf2cbe6c.png" alt="Layered birthday cake with white frosting, blue decorations, and candles glowing on top" class="cake-image">
+                </div>
+                <div class="message">
+                    <p>Selamat ulang tahun yang penuh berkah!</p>
+                    <p>Semoga hari ini menjadi awal tahun yang penuh dengan kebahagiaan, kesehatan, dan kesuksesan.</p>
+                    <p>Tiap tahun, senyummu tetap menerangi hari-hari kami. Semoga tahun ini membawa lebih banyak kebahagiaan dalam hidupmu.</p>
+                </div>
+                <div class="signature">
+                    <p>Dengan penuh kasih sayang,</p>
+                    <p>Dan orang-orang yang mencintaimu</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button class="btn" id="wishBtn">Kirim Ucapan</button>
+            <button class="btn" id="confettiBtn">Rayakan! 🎉</button>
+        </div>
+    </div>
+
+    <script>
+        // Confetti effect
+        function createConfetti() {
+            const colors = ['rgba(255, 255, 255, 0.7)', 'rgba(100, 149, 237, 0.7)', 'rgba(176, 196, 222, 0.7)', 'rgba(240, 255, 255, 0.7)'];
+            const container = document.querySelector('body');
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -10 + Math.random() * 10 + 'vh';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = 5 + Math.random() * 10 + 'px';
+                confetti.style.height = confetti.style.width;
+                
+                container.appendChild(confetti);
+                
+                // Animation
+                const animationDuration = 3000 + Math.random() * 3000;
+                confetti.style.animation = `fall ${animationDuration}ms linear forwards`;
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, animationDuration);
+            }
+            
+            // Add CSS for falling animation
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes fall {
+                    0% { 
+                        opacity: 1;
+                        transform: translateY(-10vh) rotate(0deg);
+                    }
+                    100% { 
+                        opacity: 0;
+                        transform: translateY(110vh) rotate(360deg);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Wish button functionality
+        document.getElementById('wishBtn').addEventListener('click', function() {
+            const messages = [
+                "Semoga semua harapan dan impianmu tercapai!",
+                "Panjang umur dan bahagia selalu!",
+                "Tetap tersenyum dan jangan pernah berubah!",
+                "Semoga tahun ini lebih baik dari tahun sebelumnya!",
+                "Ucapan terbaik untuk hari spesialmu!",
+                "Makin sukses dan bahagia di usia yang baru!",
+                "Semoga dilimpahkan kesehatan dan kebahagiaan!"
+            ];
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            alert("✨ " + randomMessage + " ✨");
+        });
+
+        // Confetti button functionality
+        document.getElementById('confettiBtn').addEventListener('click', function() {
+            createConfetti();
+            setTimeout(createConfetti, 500);
+            setTimeout(createConfetti, 1000);
+            
+            // Play happy birthday song snippet
+            const audio = new Audio('https://www.soundjay.com/human/sounds/happy-birthday-song-01.mp3');
+            audio.play().catch(e => console.log("Audio play failed:", e));
+        });
+    </script>
+</body>
+</html>
